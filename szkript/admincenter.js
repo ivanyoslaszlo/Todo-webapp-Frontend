@@ -3,7 +3,7 @@
 
     async function loadUsers() {
             try {
-                const response = await fetch("http://localhost:8080/user_notes");
+                const response = await fetch("http://localhost:8080/api/user_notes");
     if (!response.ok) {
         document.getElementById("details").textContent = "Hiba: " + response.status;
     return;

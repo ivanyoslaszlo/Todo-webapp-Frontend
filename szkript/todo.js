@@ -11,7 +11,7 @@ async function jegyzetmentes() {
     }
 
     try {
-        const response = await fetch("http://localhost:8080/note", {
+        const response = await fetch("http://localhost:8080/api/note", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ function jegyzet_elem_készités(noteText) {
         setTimeout(() => elem.remove(), 400);
 
         try {
-           const response= await fetch("http://localhost:8080/note", {
+            const response = await fetch("http://localhost:8080/api/note", {
                 method: "DELETE",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ function jegyzet_elem_készités(noteText) {
 
 
 function jegyzetlekeres() {
-    fetch("http://localhost:8080/note", {
+    fetch("http://localhost:8080/api/note", {
         method: "GET",
         credentials: "include"
     })
@@ -109,7 +109,7 @@ document.getElementById("logout").addEventListener("click", async (e) => {
     e.preventDefault(); // 
 
     try {
-        const res = await fetch("http://localhost:8080/kilepes", {
+        const res = await fetch("http://localhost:8080/api/kilepes", {
             method: "POST",
             credentials: "include"
         });
