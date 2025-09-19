@@ -1,0 +1,131 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #f5f5f5;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+
+form {
+    background: #252547;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(100, 0, 200, 0.4);
+    width: 320px;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #e5e5e5;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #9d4edd;
+    background-color: #1e1e2f;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #b9b9c9;
+    opacity: .9;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #c77dff;
+    box-shadow: 0 0 8px rgba(199, 125, 255, 0.8);
+}
+
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, #9d4edd, #6a00f4);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+    transition: background .3s, transform .2s;
+    margin-top: 6px;
+}
+
+input[type="submit"]:hover {
+    background: linear-gradient(135deg, #c77dff, #9d4edd);
+    transform: scale(1.03);
+}
+
+button {
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #6c63ff, #5a00d9);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+    transition: background .3s, transform .2s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #8d6cff, #7a1cf5);
+    transform: scale(1.04);
+}
+
+
+#ellenorzes {
+    font-weight: 700;
+    margin-top: 14px;
+    min-height: 20px;
+    text-align: center;
+}
+
+.success {
+    color: #77ffb1;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+
+::selection {
+    background: #9d4edd;
+    color: #fff;
+}
+
+@media (max-width: 380px) {
+    form {
+        width: 100%;
+        padding: 24px;
+    }
+}
