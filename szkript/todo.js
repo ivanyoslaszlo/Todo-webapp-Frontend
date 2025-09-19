@@ -57,12 +57,15 @@ function jegyzet_elem_készités(noteText) {
         setTimeout(() => elem.remove(), 400);
 
         try {
-            await fetch("http://localhost:8080/note", {
+           const response= await fetch("http://localhost:8080/note", {
                 method: "DELETE",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify([noteText])
             });
+            const message=await response.text();
+            console.log("A backend válassza",message)
+
         } catch (error) {
             console.error("Hiba a törlésnél:", error);
         }
@@ -97,36 +100,8 @@ function jegyzetlekeres() {
             console.error("Lekérési hiba:", error);
         });
 }
-function jegyzetorles() {
-    let torles = document.getElementById("button");
 
-    torles.addEventListener("click", async function () {
-        const items = listam.querySelectorAll("li");
-        let torlendojegyzetek = [];
 
-        items.forEach(item => {
-            const checkbox = item.querySelector("input[type='checkbox']");
-            const span = item.querySelector("span");
-            if (checkbox.checked) {
-                torlendojegyzetek.push(span.textContent);
-                listam.removeChild(item);
-            }
-        });
-
-        if (torlendojegyzetek.length > 0) {
-            try {
-                await fetch("http://localhost:8080/note", {
-                    method: "DELETE",
-                    credentials: "include",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(torlendojegyzetek)
-                });
-            } catch (error) {
-                alert("Hiba");
-            }
-        }
-    });
-}
 
 
 
@@ -163,4 +138,4 @@ inputFeladat.addEventListener("keydown", function (event) {
 
 
 jegyzetlekeres();
-jegyzetorles();
+
