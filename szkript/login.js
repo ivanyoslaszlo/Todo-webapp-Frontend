@@ -1,6 +1,7 @@
 const form = document.getElementById('loginForm');
 const errorElem = document.getElementById('error-msg');
 
+ console.log(url)
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -8,7 +9,7 @@ form.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const res = await fetch("http://localhost:8080/api/", {
+        const res = await fetch(url+"/", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -18,8 +19,8 @@ form.addEventListener('submit', async (e) => {
         const data = await res.json();
 
         if (res.ok) {
-            if (data.role === "Admin") {
-                window.location.href = "AdminCenter.html";
+            if (data.role === "admin") {
+                window.location.href = "admincenter.html";
             } else if (data.role === "User") {
                 window.location.href = "todo.html";
             }
