@@ -6,7 +6,7 @@
                 const response = await fetch(url+"/user_notes",{
                     credentials: "include" 
                 });
-    if (!response.ok) {
+    if (!response.ok) {git
         document.getElementById("details").textContent = "Hiba: " + response.status;
     return;
                 }

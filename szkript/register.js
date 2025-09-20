@@ -1,6 +1,6 @@
 let allUsers = [];
 
-// Regisztrációs űrlap kezelése
+
 document.getElementById("register-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -32,7 +32,7 @@ document.getElementById("register-form").addEventListener("submit", async functi
             ellenorzesElem.classList.remove("error");
             ellenorzesElem.classList.add("success");
             
-            loadUsers();
+            
         }
 
         setTimeout(() => {
@@ -40,7 +40,7 @@ document.getElementById("register-form").addEventListener("submit", async functi
             ellenorzesElem.classList.remove("success", "error");
         }, 2000);
     } catch (err) {
-        console.error("Hiba a regisztrációnál:", err);
+        console.log("Hiba a regisztrációnál:", err);
     }
 });
 

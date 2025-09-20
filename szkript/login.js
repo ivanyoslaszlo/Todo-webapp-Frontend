@@ -9,7 +9,7 @@ form.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const res = await fetch(url+"/", {
+        const res = await fetch(url+"/login", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -25,10 +25,12 @@ form.addEventListener('submit', async (e) => {
                 window.location.href = "todo.html";
             }
         } else {
+        
             errorElem.textContent = data.message;
             setTimeout(() => errorElem.textContent = "", 2000);
         }
     } catch (err) {
+        console.log(err);
         errorElem.textContent = "Hiba történt a szerverrel való kommunikációban!";
     }
 });
