@@ -21,11 +21,11 @@ form.addEventListener('submit', async (e) => {
         if (res.ok) {
             if (data.role === "admin") {
                 window.location.href = "admincenter.html";
-            } else if (data.role === "User") {
+            } else if (data.role === "user") {
                 window.location.href = "todo.html";
             }
         } else {
-        
+                console.log(data.message);
             errorElem.textContent = data.message;
             setTimeout(() => errorElem.textContent = "", 2000);
         }

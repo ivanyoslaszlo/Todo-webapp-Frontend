@@ -29,7 +29,7 @@ async function jegyzetmentes() {
     } catch (error) {
         error.innerHTML = error;
         window.location.href = "/html/login.html";
-        console.error(error);
+        console.log(error);
     }
 
 }
