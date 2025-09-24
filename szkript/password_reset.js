@@ -11,7 +11,7 @@ kuldes_gomb.addEventListener("click", function () {
     }
     else if
         (first_password.value != second_password.value) {
-        alert("nem egyeznek a jelszavak!")
+        alert("Nem egyeznek a jelszavak!")
     }
 
     else {

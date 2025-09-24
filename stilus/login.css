@@ -10,6 +10,13 @@
       color: #f5f5f5;
   }
 
+  #gui {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
   form {
       background: #252547;
       padding: 30px 40px;
@@ -47,8 +54,9 @@
   }
 
   input[type="submit"] {
-      width: 100%;
-      padding: 12px;
+      width: auto;
+      display: block;
+      padding:  15px  24px;
       background: linear-gradient(135deg, #9d4edd, #6a00f4);
       color: white;
       border: none;
@@ -59,7 +67,12 @@
       font-weight: 600;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
       transition: background 0.3s, transform 0.2s;
+      margin: 20px auto 0 auto;
   }
+#atiranyit{
+
+    margin-top:100px;
+}
 
   input[type="submit"]:hover {
       background: linear-gradient(135deg, #c77dff, #9d4edd);

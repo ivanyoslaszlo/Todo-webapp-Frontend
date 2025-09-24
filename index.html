@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+
   <title>Bejelentkezés</title>
   
   <link rel="stylesheet" href="/stilus/login.css">
@@ -12,20 +13,26 @@
 
 <body>
   
-  <form id="loginForm">
-    <label for="username">Felhasználónév</label>
-    <input type="text" name="username" id="username" required>
+  <div id="gui">
 
-    <label for="password">Jelszó</label>
-    <input type="password" name="password" id="password" required>
+<form id="loginForm">
+  <label for="username">Felhasználónév</label>
+  <input type="text" name="username" id="username" required>
 
-    <input type="submit" value="Belépés">
+  <label for="password">Jelszó</label>
+  <input type="password" name="password" id="password" required>
 
-    <p id="error-msg"></p>
-  </form>
+  <input type="submit" value="Belépés" >
 
-  <button onclick="window.location.href='/register.html'">Nincs még fiókod? Regisztrálj most!</button>
+  <p id="error-msg"></p>
+</form>
 
+<button onclick="window.location.href='/register.html'" id="atiranyit">Nincs még fiókod? Regisztrálj most!</button>
+
+
+
+  </div>
+  
 <script src="/szkript/config.js"></script>
 
   <script src="/szkript/login.js"></script>
