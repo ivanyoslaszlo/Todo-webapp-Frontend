@@ -118,7 +118,7 @@ document.getElementById("logout").addEventListener("click", async (e) => {
             const data = await res.json();
             console.log(data.message);
 
-            window.location.href = "index.html";
+            window.location.href = "/index.html";
         } else {
             console.error("Kilépés sikertelen!");
         }
