@@ -1,71 +1,80 @@
+let allUsers = [];
+let freezeSelect = false;        
+let lastSnapshot = "";           
 
-    let allUsers = [];
-
-    async function loadUsers() {
-            try {
-                const response = await fetch(url+"/user_notes",{
-                    credentials: "include" 
-                });
-    if (!response.ok) {git
-        document.getElementById("details").textContent = "Hiba: " + response.status;
-    return;
-                }
-
-    allUsers = await response.json();
-    const select = document.getElementById("userSelect");
+const select = document.getElementById("userSelect");
+const detailsEl = document.getElementById("details");
 
 
-    select.innerHTML = '<option value="">-- Válassz felhasználót --</option>';
+select.addEventListener("focus", () => { freezeSelect = true; });
+select.addEventListener("blur", () => { freezeSelect = false; });
 
-               
-                allUsers.forEach(user => {
-                    const opt = document.createElement("option");
-    opt.value = user.username;
-    opt.textContent = user.username;
-    select.appendChild(opt);
-                });
+select.addEventListener("change", e => {
+    if (e.target.value) showUserDetails(e.target.value);
+    else detailsEl.innerHTML = "";
+});
 
-
-    if (select.value) {
-        showUserDetails(select.value);
-                } else {
-        document.getElementById("details").innerHTML = "";
-                }
-
-            } catch (err) {
-        console.error("Hiba a lekérés közben:", err);
-            }
+async function loadUsers() {
+    try {
+        const response = await fetch(url + "/user_notes", { credentials: "include" });
+        if (!response.ok) {
+            detailsEl.textContent = "Hiba: " + response.status;
+            return;
         }
 
-    function showUserDetails(username) {
-            const selected = allUsers.find(u => u.username === username);
-    if (selected) {
-        document.getElementById("details").innerHTML = `
-                    <p><b>Felhasználónév:</b> ${selected.username}</p>
-                    <p><b>Email:</b> ${selected.email}</p>
-                    <p><b>Szerep:</b> ${selected.role}</p>
-                    <p><b>Regisztráció:</b> ${selected.registeredAt}</p>
-                    <p><b>Utolsó login:</b> ${selected.lastLogin}</p>
-                    <p><b>Jegyzetek:</b></p>
-                    ${selected.notes && selected.notes.length > 0
-            ? "<ul>" + selected.notes.map(note => `<li>${note}</li>`).join("") + "</ul>"
-            : "<p>Nincsenek jegyzetek</p>"
-        }
-                `;
-            } else {
-        document.getElementById("details").innerHTML = "";
+        const data = await response.json();
+        allUsers = data;
+
+        
+        const newSnapshot = allUsers.map(u => u.username).join("|");
+
+        
+        if (!freezeSelect && newSnapshot !== lastSnapshot) {
+            const current = select.value;  
+            
+            select.innerHTML = '<option value="">-- Válassz felhasználót --</option>';
+            for (const u of allUsers) {
+                const opt = document.createElement("option");
+                opt.value = u.username;
+                opt.textContent = u.username;
+                select.appendChild(opt);
             }
+            if (current && allUsers.some(u => u.username === current)) {
+                select.value = current;
+            }
+            lastSnapshot = newSnapshot;
         }
 
         
-        document.getElementById("userSelect").addEventListener("change", e => {
-            if (e.target.value) {
-        showUserDetails(e.target.value);
-            } else {
-        document.getElementById("details").innerHTML = "";
-            }
-        });
+        if (select.value) showUserDetails(select.value);
+        else detailsEl.innerHTML = "";
+
+    } catch (err) {
+        console.error("Hiba a lekérés közben:", err);
+    }
+}
+
+function showUserDetails(username) {
+    const u = allUsers.find(x => x.username === username);
+    if (!u) { detailsEl.innerHTML = ""; return; }
+
+    detailsEl.innerHTML = `
+    <p><b>Felhasználónév:</b> ${u.username}</p>
+    <p><b>Email:</b> ${u.email}</p>
+    <p><b>Szerep:</b> ${u.role}</p>
+    <p><b>Regisztráció:</b> ${u.registeredAt}</p>
+    <p><b>Utolsó login:</b> ${u.lastLogin}</p>
+    <p><b>Jegyzetek:</b></p>
+    ${u.notes?.length ? "<ul>" + u.notes.map(n => `<li>${n}</li>`).join("") + "</ul>" : "<p>Nincsenek jegyzetek</p>"}
+  `;
+}
+
+document.getElementById("kilepes").addEventListener("click", async () => {
+    await fetch(url + "/logout", { method: "POST", credentials: "include" });
+    window.location.href = "/index.html";  
+});
+
+loadUsers();
 
 
-    loadUsers();
-
+setInterval(loadUsers, 3000);
