@@ -20,9 +20,9 @@ form.addEventListener('submit', async (e) => {
 
         if (res.ok) {
             if (data.role === "admin") {
-                window.location.href = "html/admincenter.html";
+                window.location.href = "pages/admincenter.html";
             } else if (data.role === "user") {
-                window.location.href = "html/todo.html";
+                window.location.href = "pages/todo.html";
             }
         } else {
                 console.log(data.message);

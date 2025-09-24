@@ -28,7 +28,7 @@ async function jegyzetmentes() {
 
     } catch (error) {
         error.innerHTML = error;
-        window.location.href = "/html/login.html";
+        window.location.href = "pages/login.html";
         console.log(error);
     }
 
