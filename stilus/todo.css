@@ -46,8 +46,8 @@ body {
 
 #logout {
     position: absolute;
-    top: 140px;
-    right: 220px;
+    top: 30px;
+    left: 30px;
     margin-top: 30px;
     height: 44px;
     font-size: 15px;
@@ -62,7 +62,18 @@ body {
     font-weight: 600;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
-
+#fiok_torles{
+    position: absolute;
+        top: 80px;
+        right: 10px;
+        color: white;
+        border-radius: 30px;
+        border: none;
+        height: 40px;
+        font-size: 15px;
+        padding: 0 14px;
+        background: #34025e;
+}
 #jelszo_reset {
 
     position: absolute;
@@ -93,7 +104,10 @@ body {
     font-weight: 600;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
-#jelszo_reset:hover{
+
+
+#jelszo_reset:hover,
+#fiok_torles:hover{
     transform: scale(1.06);
     background: linear-gradient(135deg, #c77dff, #9d4edd);
 }
@@ -241,27 +255,31 @@ span.done {
 }
 
 @media (max-width: 600px) {
-    body {}
+    body {
+        margin: 0;
+    }
 
     .gui {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(30, 0, 60, 255);
-        /* sötét, átlátszó háttér */
-        backdrop-filter: blur(6px);
-        padding: 10px;
+        flex-direction: row;
+        
+        justify-content: space-between;
+       
+        align-items: center;
     }
+  #logout{
+
+    position: absolute;
+    top:30px;
+    left:10px;
+  }
 
     .button-row {
         flex-direction: column;
         align-items: stretch;
-
         gap: 12px;
         margin-top: 130px;
         margin-left: auto;
         margin-right: auto;
-
     }
 
     #feladat {
@@ -277,14 +295,6 @@ span.done {
         width: 30%;
         margin: auto;
     }
-
-    #logout {
-        position: absolute;
-        top: 25px;
-        left: 18px;
-        width: 70px;
-    }
-
 
     ul#jegyzetlista {
         width: 100%;
