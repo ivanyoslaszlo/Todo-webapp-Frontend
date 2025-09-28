@@ -31,6 +31,20 @@ header {
     top: 40px;
 }
 
+
+#ban {
+    position:absolute;
+    top:150px;
+    right:380px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background: #e74c3c;
+    padding: 10px 18px;
+    border-radius: 8px;
+    width:150px;
+}
+
 #kilepes:hover {
     background: #c0392b;
     transform: scale(1.05);
@@ -54,7 +68,7 @@ main {
 }
 
 .kontroll {
-    margin-top:60px;
+    margin-top: 60px;
     width: 90%;
     max-width: 400px;
     background: rgba(255, 255, 255, 0.05);

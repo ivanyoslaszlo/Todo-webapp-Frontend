@@ -64,7 +64,7 @@ body {
 }
 #fiok_torles{
     position: absolute;
-        top: 80px;
+        top: 30px;
         right: 10px;
         color: white;
         border-radius: 30px;
@@ -74,10 +74,10 @@ body {
         padding: 0 14px;
         background: #34025e;
 }
-#jelszo_reset {
+#fiok_beallitasok {
 
     position: absolute;
-    top: 30px;
+    top: 40px;
     right:10px;
     color: white;
     border-radius: 30px;

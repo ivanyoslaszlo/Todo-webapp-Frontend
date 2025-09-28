@@ -138,13 +138,6 @@ inputFeladat.addEventListener("keydown", function (event) {
 
 
 
-const fiok_torles = document.getElementById("fiok_torles")
-
-fiok_torles.addEventListener("click",function(){
-
-alert("Ez a funkció (fiók törlés) jelenleg nem elérhető!")
-});
-
 
 
 

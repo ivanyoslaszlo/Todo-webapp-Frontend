@@ -1,9 +1,9 @@
-const kuldes_gomb = document.getElementById("jelszo");
+const jelszo_modositasa = document.getElementById("jelszo_modositasa");
 const first_password = document.getElementById("first_password")
 const second_password = document.getElementById("second_password")
 
 
-kuldes_gomb.addEventListener("click", function () {
+jelszo_modositasa.addEventListener("click", function () {
 
 
     if (first_password.value.trim() === "" || second_password.value.trim() === "") {
@@ -40,4 +40,30 @@ kuldes_gomb.addEventListener("click", function () {
 
 
 });
+
+function ablak_nyitas() {
+    document.getElementById("delete_gui").style.display = "block";
+}
+function ablak_zaras() {
+    document.getElementById("delete_gui").style.display = "none";
+}
+function fiok_torles() {
+    fetch(url+"/delete_user", {
+        method: "POST",
+        credentials: "include" // így megy vele a session cookie
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Fiók törölve!");
+                ablak_zaras();
+                window.location.href = "/index.html";
+            } else {
+                alert("Hiba: " + response.status);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Hálózati hiba!");
+        });
+}
 

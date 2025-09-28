@@ -33,11 +33,13 @@ document.getElementById("register-form").addEventListener("submit", async functi
             ellenorzesElem.classList.add("success");
             
             
+            
         }
 
         setTimeout(() => {
             ellenorzesElem.innerText = '';
             ellenorzesElem.classList.remove("success", "error");
+            window.location.href = "/index.html";
         }, 2000);
     } catch (err) {
         console.log("Hiba a regisztrációnál:", err);

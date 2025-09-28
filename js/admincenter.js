@@ -1,6 +1,6 @@
 let allUsers = [];
-let freezeSelect = false;        
-let lastSnapshot = "";           
+let freezeSelect = false;
+let lastSnapshot = "";
 
 const select = document.getElementById("userSelect");
 const detailsEl = document.getElementById("details");
@@ -25,13 +25,13 @@ async function loadUsers() {
         const data = await response.json();
         allUsers = data;
 
-        
+
         const newSnapshot = allUsers.map(u => u.username).join("|");
 
-        
+
         if (!freezeSelect && newSnapshot !== lastSnapshot) {
-            const current = select.value;  
-            
+            const current = select.value;
+
             select.innerHTML = '<option value="">-- Válassz felhasználót --</option>';
             for (const u of allUsers) {
                 const opt = document.createElement("option");
@@ -45,7 +45,7 @@ async function loadUsers() {
             lastSnapshot = newSnapshot;
         }
 
-        
+
         if (select.value) showUserDetails(select.value);
         else detailsEl.innerHTML = "";
 
@@ -71,10 +71,52 @@ function showUserDetails(username) {
 
 document.getElementById("kilepes").addEventListener("click", async () => {
     await fetch(url + "/logout", { method: "POST", credentials: "include" });
-    window.location.href = "/index.html";  
+    window.location.href = "/index.html";
 });
 
+
+
+
+
+
+
+
+
+
+
+const ban = document.getElementById("ban");
+const select2 = document.getElementById("userSelect"); 
+
+ban.addEventListener("click", async () => {
+    const selectedUser = select2.value;
+    if (!selectedUser) {
+        alert("Először válassz ki egy felhasználót!");
+        return;
+    }
+
+    let action;
+    if (ban.innerHTML === "Felhasználó tiltása") {
+        action = "ban";
+        ban.innerHTML = "Feloldás";
+        ban.style.background = "green";
+    } else {
+        action = "unban";
+        ban.innerHTML = "Felhasználó tiltása";
+        ban.style.background = "red";
+    }
+
+    await fetch(url + "/ban", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+            username: selectedUser,
+            action: action
+        })
+    });
+});
+
+
+
 loadUsers();
-
-
 setInterval(loadUsers, 3000);
