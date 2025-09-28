@@ -17,7 +17,13 @@ async function jegyzetmentes() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ note: noteText })
         });
-
+if (response.status === 401 || response.status === 403) {
+            error.innerText = "Be kell lépned a jegyzet hozzáadásához!";
+            setTimeout(() => {
+                window.location.href = "/pages/login.html";
+            }, 2000);
+            return;
+            }
         const message = await response.text();
         jegyzet_elem_készités(noteText);
 
