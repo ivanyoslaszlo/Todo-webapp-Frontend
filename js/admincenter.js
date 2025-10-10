@@ -4,15 +4,8 @@ let lastSnapshot = "";
 
 const select = document.getElementById("userSelect");
 const detailsEl = document.getElementById("details");
-
-
-select.addEventListener("focus", () => { freezeSelect = true; });
-select.addEventListener("blur", () => { freezeSelect = false; });
-
-select.addEventListener("change", e => {
-    if (e.target.value) showUserDetails(e.target.value);
-    else detailsEl.innerHTML = "";
-});
+const ban = document.getElementById("ban");
+const select2 = document.getElementById("userSelect");
 
 async function loadUsers() {
     try {
@@ -21,17 +14,11 @@ async function loadUsers() {
             detailsEl.textContent = "Hiba: " + response.status;
             return;
         }
-
         const data = await response.json();
         allUsers = data;
-
-
         const newSnapshot = allUsers.map(u => u.username).join("|");
-
-
         if (!freezeSelect && newSnapshot !== lastSnapshot) {
             const current = select.value;
-
             select.innerHTML = '<option value="">-- Válassz felhasználót --</option>';
             for (const u of allUsers) {
                 const opt = document.createElement("option");
@@ -44,11 +31,8 @@ async function loadUsers() {
             }
             lastSnapshot = newSnapshot;
         }
-
-
         if (select.value) showUserDetails(select.value);
         else detailsEl.innerHTML = "";
-
     } catch (err) {
         console.error("Hiba a lekérés közben:", err);
     }
@@ -56,36 +40,34 @@ async function loadUsers() {
 
 function showUserDetails(username) {
     const u = allUsers.find(x => x.username === username);
+    
     if (!u) { detailsEl.innerHTML = ""; return; }
-
+    let hozzaferes = u.isbanned ? "tiltva" : "nincs tiltva";
+    if (u.isbanned) {
+        ban.innerHTML = "Feloldás";
+        ban.style.background = "green";
+    } else {
+        ban.innerHTML = "Felhasználó tiltása";
+        ban.style.background = "red";
+    }
     detailsEl.innerHTML = `
     <p><b>Felhasználónév:</b> ${u.username}</p>
     <p><b>Email:</b> ${u.email}</p>
     <p><b>Szerep:</b> ${u.role}</p>
     <p><b>Regisztráció:</b> ${u.registeredAt}</p>
     <p><b>Utolsó login:</b> ${u.lastLogin}</p>
+    <p><b>Hozzáférés:</b> ${hozzaferes}</p>
     <p><b>Jegyzetek:</b></p>
     ${u.notes?.length ? "<ul>" + u.notes.map(n => `<li>${n}</li>`).join("") + "</ul>" : "<p>Nincsenek jegyzetek</p>"}
   `;
 }
 
-document.getElementById("kilepes").addEventListener("click", async () => {
-    await fetch(url + "/logout", { method: "POST", credentials: "include" });
-    window.location.href = "/index.html";
+select.addEventListener("focus", () => { freezeSelect = true; });
+select.addEventListener("blur", () => { freezeSelect = false; });
+select.addEventListener("change", e => {
+    if (e.target.value) showUserDetails(e.target.value);
+    else detailsEl.innerHTML = "";
 });
-
-
-
-
-
-
-
-
-
-
-
-const ban = document.getElementById("ban");
-const select2 = document.getElementById("userSelect"); 
 
 ban.addEventListener("click", async () => {
     const selectedUser = select2.value;
@@ -93,18 +75,12 @@ ban.addEventListener("click", async () => {
         alert("Először válassz ki egy felhasználót!");
         return;
     }
-
     let action;
     if (ban.innerHTML === "Felhasználó tiltása") {
         action = "ban";
-        ban.innerHTML = "Feloldás";
-        ban.style.background = "green";
     } else {
         action = "unban";
-        ban.innerHTML = "Felhasználó tiltása";
-        ban.style.background = "red";
     }
-
     await fetch(url + "/ban", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -114,9 +90,14 @@ ban.addEventListener("click", async () => {
             action: action
         })
     });
+    await loadUsers();
+    if (select2.value) showUserDetails(select2.value);
 });
 
-
+document.getElementById("kilepes").addEventListener("click", async () => {
+    await fetch(url + "/logout", { method: "POST", credentials: "include" });
+    window.location.href = "/index.html";
+});
 
 loadUsers();
 setInterval(loadUsers, 3000);
